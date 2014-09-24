@@ -1,0 +1,247 @@
+// mymenu.scss
+
+
+@import "compass/css3";
+@import "animate";
+@import "myanimation";
+
+
+$mymenu_color1: #79a002;
+$mymenu_color2: #9e1847;
+$mymenu_color3: rgba(lighten(#38b0db, 30%), 1.0);
+$mymenu_color4: rgba(lighten(#59eae0, 25%), 1.0);
+$mymenu_color5: rgba(lighten(#52caea, 25%), 1.0);
+
+$mymenu_fgcolor: #fff !default;
+$mymenu_bgcolor: $mymenu_color1 !default;
+$mymenu_font_size: 16px !default;
+$mymenu_trigger_width: 40px !default;
+$mymenu_trigger_height: 40px !default;
+$mymenu_bordercolor: $mymenu_color5 !default;
+$mymenu_hovercolor: $mymenu_color5 !default;
+$mymenu_label_fgcolor: rgba(#333, 1.0) !default;
+$mymenu_label_bgcolor: darken(rgba(#f6f6f6, 1.0), 3%) !default;
+
+
+@mixin horizontal_arrow($direction: -45deg, $thick: 2px) {
+    @include transform(rotate($direction));
+    border-bottom: $thick solid rgba($mymenu_fgcolor, 1.0);
+    border-right: $thick solid rgba($mymenu_fgcolor, 1.0);
+    border-left: none;
+    border-top: none;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-bottom: -4px;
+    position: absolute;
+    bottom: 50%;
+    color: transparent;
+    background-color: transparent;
+    content: '';
+}
+
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 300;
+    src: url("../font/Lato-Light.woff") format("woff");
+    src: url(http://fonts.gstatic.com/s/lato/v10/kcf5uOXucLcbFOydGU24WALUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+}
+
+.mymenu_wrapper {
+    font-family: "Lato", "Calibri", "Arial", sans-serif;
+    font-size: $mymenu_font_size;
+    font-weight: 300;
+    text-align: left;
+
+    ul.mymenu_mainmenu, ul.mymenu_submenu {
+        @include box-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+        //@include box-shadow(3px 3px 0 rgba(0, 0, 0, 1)); // debug
+
+        border: 1px solid $mymenu_bordercolor;
+        list-style: none;
+
+        // liを横並びにした時にできる空白を防ぐ
+        // http://delaymania.com/201404/web/list-inline-block/
+        font-size: 0;
+
+        // デフォルト
+        width: 300px;
+
+        &.mymenu_mainmenu {
+            //display: none; // debug
+        }
+
+        &.mymenu_submenu {
+            display: none;
+        }
+
+        > li {
+            color: $mymenu_fgcolor;
+            background-color: $mymenu_bgcolor;
+            font-size: $mymenu_font_size;
+            width: 100%;
+
+            > a, > span, > div {
+                @include user-select(none);
+                cursor: pointer;
+                display: block;
+                padding: 10px 20px;
+            }
+
+            > a {
+                color: $mymenu_fgcolor;
+                text-decoration: none;
+                position: relative;
+
+                > * {
+                    margin-right: 20px;
+                }
+            }
+
+            > a:after {
+                @include horizontal_arrow(-45deg, 2px); // >
+                right: 20px;
+            }
+
+            &:not(.mymenu_subviewopen) {
+                //border-bottom: 1px solid lighten($mymenu_bgcolor, 5%);
+            }
+
+            &:hover:not(.mymenu_disable_hover):not(.mymenu_title) {
+                background-color: $mymenu_hovercolor;
+                text-decoration: none;
+            }
+
+            &.mymenu_back {
+                > a {
+                    position: relative;
+                    padding-left: 40px;
+
+                    &:after {
+                        @include horizontal_arrow(135deg, 2px); // <
+                        left: 20px;
+                    }
+                }
+            }
+
+            &.mymenu_title {
+                > a, > span {
+                    text-align: center;
+                }
+            }
+
+            &.mymenu_label {
+                > a, > span {
+                    color: $mymenu_label_fgcolor;
+                    background-color: $mymenu_label_bgcolor;
+                    font-size: 12px;
+                    padding: 0 15px;
+                }
+            }
+        }
+    }
+
+    .mymenu_animate_in1 {
+        @include animation(MenuAnimIn1 0.3s);
+    }
+
+    .mymenu_submenu.mymenu_animate_in1 {
+        @include animation(SubMenuAnimIn1 0.4s ease);
+    }
+
+    .mymenu_animate_out1 {
+        @include animation(MenuAnimOut1 0.4s);
+    }
+
+    .mymenu_submenu.mymenu_animate_out1 {
+        @include animation(SubMenuAnimOut1 0.4s ease);
+    }
+
+    .mymenu_animate_in2 {
+        @include fadeIn(0.2s, 0s, ease, both, hidden);
+    }
+
+    .mymenu_animate_out2 {
+        @include fadeOut(0.3s, 0s, ease, both, hidden);
+    }
+
+    .mymenu_animate_in3 {
+        @include fadeInRight(0.3s, 0s, ease, both, hidden);
+    }
+
+    .mymenu_animate_out3 {
+        @include fadeOut(0.4s, 0s, ease, both, hidden);
+    }
+
+    .mymenu_animate_in4 {
+        @include fadeInDown(0.3s, 0s, ease, both, hidden);
+    }
+
+    .mymenu_animate_out4 {
+        @include fadeOut(0.4s, 0s, ease, both, hidden);
+    }
+
+    .mymenu_animate_in5 {
+        @include fadeIn(5s, 0s, ease, both, hidden);
+    }
+
+    .mymenu_animate_out5 {
+        @include fadeOut(5s, 0s, ease, both, hidden);
+    }
+}
+
+button.mymenu_trigger {
+    @mixin trigger_style {
+        background-color: $mymenu_bgcolor;
+        width: 100%;
+        height: 20%;
+        display: block;
+        position: absolute;
+        content: '';
+    }
+
+    @include box-shadow(0 2px 6px rgba(0, 0, 0, 0.3), 0 4px 15px -5px rgba(0, 0, 0, 0.0));
+
+    color: $mymenu_fgcolor;
+    background-color: $mymenu_bgcolor;
+    width: $mymenu_trigger_width;
+    height: $mymenu_trigger_height;
+    padding: 0;
+    cursor: pointer;
+    //border-style: none;
+    border: 1px solid $mymenu_bordercolor;
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+
+    span {
+        width: $mymenu_trigger_width * 0.65;
+        height: $mymenu_trigger_height * 0.5;
+        background-color: rgba($mymenu_fgcolor, 0.75);
+        display: block;
+        margin: 0 auto;
+        position: relative;
+
+        &:before {
+            @include trigger_style;
+            top: 20%;
+        }
+
+        &:after {
+            @include trigger_style;
+            top: 60%;
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        color: $mymenu_fgcolor;
+        background-color: rgba(lighten($mymenu_bgcolor, 5%), 1.0);
+        text-decoration: none;
+    }
+}
+

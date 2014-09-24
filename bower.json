@@ -1,0 +1,22 @@
+{
+  "name": "jquery.mymenu.js",
+  "version": "0.0.1",
+  "authors": [
+    "noname"
+  ],
+  "main": "js/mymenu.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "exportsOverride": {},
+  "dependencies": {
+    "jackilyn.animate.scss": "*"
+  }
+}

@@ -1,0 +1,111 @@
+// myanimation.scss
+
+
+@import "compass/css3/transform";
+
+
+@-webkit-keyframes MenuAnimIn1 {
+    0% {
+        @include transform(translateZ(-500px) rotateY(0deg));
+        opacity: 0;
+    }
+    20% {
+        @include transform(translateZ(-250px) rotateY(30deg));
+        opacity: 0.5;
+    }
+    100% {
+        @include transform(translateZ(0px) rotateY(0deg));
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes SubMenuAnimIn1 {
+    0% {
+        @include transform(translateX(50%));
+        opacity: 0;
+    }
+    100% {
+        @include transform(translateX(0px));
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes MenuAnimOut1 {
+    0% {
+    }
+    50% {
+        @include transform(translateZ(-250px) rotateY(30deg));
+    }
+    75% {
+        @include transform(translateZ(-372.5px) rotateY(15deg));
+        opacity: .5;
+    }
+    100% {
+        @include transform(translateZ(-500px) rotateY(0deg));
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes SubMenuAnimOut1 {
+    0% {
+        @include transform(translateX(0%));
+        opacity: 1;
+    }
+    100% {
+        @include transform(translateX(50%));
+        opacity: 0;
+    }
+}
+
+@keyframes MenuAnimIn1 {
+    0% {
+        @include transform(translateZ(-500px) rotateY(0deg));
+        opacity: 0;
+    }
+    20% {
+        @include transform(translateZ(-250px) rotateY(30deg));
+        opacity: 0.5;
+    }
+    100% {
+        @include transform(translateZ(0px) rotateY(0deg));
+        opacity: 1;
+    }
+}
+
+@keyframes SubMenuAnimIn1 {
+    0% {
+        @include transform(translateX(50%));
+        opacity: 0;
+    }
+    100% {
+        @include transform(translateX(0px));
+        opacity: 1;
+    }
+}
+
+@keyframes MenuAnimOut1 {
+    0% {
+    }
+    50% {
+        @include transform(translateZ(-250px) rotateY(30deg));
+    }
+    75% {
+        @include transform(translateZ(-372.5px) rotateY(15deg));
+        opacity: .5;
+    }
+    100% {
+        @include transform(translateZ(-500px) rotateY(0deg));
+        opacity: 0;
+    }
+}
+
+@keyframes SubMenuAnimOut1 {
+    0% {
+        @include transform(translateX(0%));
+        opacity: 1;
+    }
+    100% {
+        @include transform(translateX(50%));
+        opacity: 0;
+    }
+}
