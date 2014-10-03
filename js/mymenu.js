@@ -5,11 +5,11 @@
     "use strict";
 
 
-    var debug = true;
+    var mymenu_debug = false;
 
 
     var _mylog = function(message) {
-        if(window.console && debug) {
+        if(window.console && mymenu_debug) {
             window.console.log(message);
         }
     };
@@ -22,7 +22,7 @@
 
 
     $.mymenu = function(options, element) {
-        this.debug = false;
+        this.debug = mymenu_debug;
         this.$el = $(element);
 
         this.initialize(options);
@@ -69,6 +69,9 @@
             };
 
             this.els = {
+                wrappertag: "section",
+                itemtag: "nav",
+
                 // トリガー
                 trigger: ".mymenu_trigger",
                 triggeractive: ".mymenu_trigger_active",
@@ -76,30 +79,37 @@
 
                 // 戻るボタン 自動的に追加
                 back: ".mymenu_back",
-                $backelement: $("<li class='mymenu_back'><a>Back</a></li>"),
+                $backelement: $("<nav class='mymenu_back'><a>Back</a></nav>"),
 
                 // submenuをオープンしているliに付けられるクラス
                 submenuopen: ".mymenu_submenuopen",
 
                 // back以外のliアイテム
-                $menuitems: this.$el.find("li").not(".mymenu_back"),
+                $menuitems: this.$el.find("nav").not(".mymenu_back"),
 
                 // これが付いているliはユーザーが手動でオープン
                 // ウェイトが入るときのため
-                useropen: "li.mymenu_submenu_useropen",
+                useropen: "section.mymenu_menu_useropen",
 
                 // 現在の階層から見た新しいulに付くクラス
                 flyin: ".mymenu_flyin",
 
                 // mymenu_wrapper下に入れるダミーのul
                 dummy: ".mymenu_dummy",
-                $dummyelement: $("<ul class='mymenu_dummy'></ul>"),
+                $dummyelement: $("<section class='mymenu_dummy'></section>"),
+
+                // title
+                title: ".mymenu_title",
+
+                // label
+                label: ".mymenu_label",
+                label2: ".mymenu_label2",
             };
 
             // elsにclass名とjquery objectを登録
             // ex. els.mainmenu, els.$mainmenu
-            create_selector_and_jobj("mainmenu", "ul.mymenu_mainmenu");
-            create_selector_and_jobj("submenu", "ul.mymenu_submenu");
+            create_selector_and_jobj("mainmenu", "section.mymenu_mainmenu");
+            create_selector_and_jobj("submenu", "section.mymenu_submenu");
 
             $.mymenu.validate_equal(this.$el, 1);
             $.mymenu.validate_equal(this.els.$mainmenu, 1);
@@ -137,9 +147,6 @@
 
 
     $.mymenu.prototype.initialize_component = function() {
-        //this.els.$mainmenu.addClass($.mymenu.getclass(this.els.submenuopen));
-        //this.els.$mainmenu.css("position", "relative");
-
         this.$el.css("position", "relative");
 
         this.els.$submenu.prepend(this.els.$backelement.clone());
@@ -178,7 +185,11 @@
         this.els.$menuitems.on("click", function(event) {
             event.stopPropagation();
 
-            if(!$(this).hasClass($.mymenu.getclass(self.els.useropen))) {
+            var isuseropen = $(this)
+                .children(self.els.wrappertag)
+                .hasClass($.mymenu.getclass(self.els.useropen));
+
+            if(!isuseropen) {
                 self.open_submenu(this);
             }
         });
@@ -214,7 +225,7 @@
     };
 
 
-    // origin_tid(tag id): liを想定
+    // origin_tid(tag id): this.els.itemtagを受け付ける
     $.mymenu.prototype.open_submenu = function(origin_tid) {
         if(!origin_tid) {
             _myerr("mymenu: open_submenu origin_tid null.");
@@ -288,9 +299,7 @@
                             .css("opacity", 1)
                             .css("display", "block");
 
-                        if(self.debug) {
-                            _mylog("mymenu: open animation end.");
-                        }
+                        _mylog("mymenu: open animation end.");
                     };
 
                     break;
@@ -307,9 +316,7 @@
                             .css("opacity", 0)
                             .css("display", "none");
 
-                        if(self.debug) {
-                            _mylog("mymenu: close animation end.");
-                        }
+                        _mylog("mymenu: close animation end.");
                     };
 
                     break;
@@ -330,9 +337,7 @@
 
                     $child_container_obj = $origin_obj.children(self.els.submenu).first();
                     if($child_container_obj.size() === 0) {
-                        if(self.debug) {
-                            _mylog("mymenu: not found child container.");
-                        }
+                        _mylog("mymenu: not found child container.");
                         return false;
                     }
 
@@ -405,9 +410,7 @@
                         self.els.$mainmenu.removeClass($.mymenu.getclass(self.options.animation_class.levelchange.out));
                         $current_container.remove();
 
-                        if(self.debug) {
-                            _mylog("mymenu: down animation end.");
-                        }
+                        _mylog("mymenu: down animation end.");
                     };
 
                     break;
@@ -445,9 +448,9 @@
                         .appendTo($submenu_opened_listitem);
 
                     var $origin_obj = option.$origin_obj;
-                    var $parent_listitem = $origin_obj.parent("ul").parent("li");
-                    var $parent_container = $parent_listitem.parent("ul");
-                    var $gparent_listitem = $parent_container.parent("li");
+                    var $parent_listitem = $origin_obj.parent(self.els.wrappertag).parent(self.els.itemtag);
+                    var $parent_container = $parent_listitem.parent(self.els.wrappertag);
+                    var $gparent_listitem = $parent_container.parent(self.els.itemtag);
 
                     var $new_container = $parent_container
                         .addClass($.mymenu.getclass(self.els.flyin))
@@ -480,9 +483,7 @@
 
                         $cc_clone.remove();
 
-                        if(self.debug) {
-                            _mylog("mymenu: up animation end.");
-                        }
+                        _mylog("mymenu: up animation end.");
                     };
             }
 
