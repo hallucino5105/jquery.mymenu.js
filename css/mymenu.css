@@ -4500,6 +4500,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
     border: 1px solid #c4edf8;
     list-style: none;
     width: 300px; }
@@ -4852,10 +4855,13 @@ button.mymenu_trigger {
   height: 40px;
   padding: 0;
   cursor: pointer;
-  border: 1px solid #c4edf8;
   display: block;
   text-align: center;
-  vertical-align: middle; }
+  vertical-align: middle;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  border: 1px solid #c4edf8; }
   button.mymenu_trigger span {
     width: 26px;
     height: 20px;

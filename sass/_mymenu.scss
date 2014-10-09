@@ -5,6 +5,7 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/user-interface";
 @import "compass/css3/animation";
+@import "compass/css3/border-radius";
 @import "animate";
 @import "myanimation";
 
@@ -24,6 +25,7 @@ $mymenu_font_size: 16px !default;
 $mymenu_trigger_width: 40px !default;
 $mymenu_trigger_height: 40px !default;
 $mymenu_bordercolor: $mymenu_color6 !default;
+$mymenu_borderradius: 0 !default;
 $mymenu_hovercolor: $mymenu_color6 !default;
 $mymenu_label_fgcolor: rgba(#333, 1.0) !default;
 $mymenu_label_bgcolor: darken(rgba(#f6f6f6, 1.0), 3%) !default;
@@ -73,6 +75,7 @@ $debug: "false";
             }
         }
 
+        @include border-radius($mymenu_borderradius);
         border: 1px solid $mymenu_bordercolor;
         list-style: none;
 
@@ -228,10 +231,12 @@ button.mymenu_trigger {
     padding: 0;
     cursor: pointer;
     //border-style: none;
-    border: 1px solid $mymenu_bordercolor;
     display: block;
     text-align: center;
     vertical-align: middle;
+
+    @include border-radius($mymenu_borderradius);
+    border: 1px solid $mymenu_bordercolor;
 
     span {
         width: $mymenu_trigger_width * 0.65;
