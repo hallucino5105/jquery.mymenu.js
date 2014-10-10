@@ -113,7 +113,7 @@
 
             $.mymenu.validate_equal(this.$el, 1);
             $.mymenu.validate_equal(this.els.$mainmenu, 1);
-            $.mymenu.validate_equal(this.els.$trigger, 1);
+            //$.mymenu.validate_equal(this.els.$trigger, 1);
         }
 
         {
